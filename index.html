@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="index.css" />
+        <title>Words</title>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="search-a-word">
+                <h1>Search a Word</h1>
+            </div>
+            <div id="search-bar-and-buttons">
+                <form id="word-search">
+                    <input
+                        id = "word-input"
+                        type="text"
+                        placeholder = "search word from list here"
+                        />
+                    <select id="select">
+                        <option value = "Select an Option">Select an Option</option>
+                        <option value = "Definition">Definition</option>
+                        <option value = "Part of Speech">Part of Speech</option>
+                        <option value = "Synonym(s)">Synonym(s)</option>
+                        <option value = "Full Entry">Full Entry</option>
+                    </select>    
+                    <button id = "submit-button" type="submit">Search Word</button>
+                </form>
+                <button id = "compare-button" type="click">Double-Click to Compare</button>
+            </div>
+            <div id="word-list-div">
+                <h2>Word List</h2>
+                <ul id="word-list"></ul>
+            </div>
+            <div id="word-and-definition">
+                <h2>Word and Definition</h2>
+            </div>
+            <div id="word-comparison">
+                <h2>Word Comparison</h2>
+            </div>
+          </div>
+        <script type="text/javascript" src="index.js"></script>
+    </body>
+</html> 

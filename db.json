@@ -1,0 +1,145 @@
+{
+    "words":
+    [ 
+        { 
+            "id": 1,
+            "word": "hello",
+            "partOfSpeech": "exclamation",
+            "definition": "used as a greeting or to begin a phone conversation",
+            "synonyms": "greetings, hi, howdy"
+        },
+        {
+            "id": 2,
+            "word": "world",
+            "partOfSpeech": "noun",
+            "definition": "The Universe",
+            "synonyms": "planet, circle, earth, Sol III, globe"
+        },
+        {
+            "id": 3,
+            "word": "galaxy",
+            "partOfSpeech": "noun",
+            "definition": "The Milky Way; the apparent band of concentrated stars which appears in the night sky over earth",
+            "synonyms": "G, star city, trichiliocosm"
+        },
+        {
+            "id": 4,
+            "word": "constitution",
+            "partOfSpeech": "noun",
+            "definition": "The act, or process of setting something up, or es…osition or structure of such a thing; its makeup.",
+            "synonyms": "configuration, form"
+        },
+        {
+            "id": 5,
+            "word": "intrepid" ,
+            "partOfSpeech": "adjective",
+            "definition": "Fearless; bold; brave." ,
+            "synonyms": "couragous, fearless, unafraid"
+        },
+        {
+            "id": 6,
+            "word": "defiant",
+            "partOfSpeech": "noun, adjective",
+            "definition": "One who defies opposition.",
+            "synonyms": "dareful, rebellious"
+        },
+        {
+            "id": 7,
+            "word": "discovery",
+            "partOfSpeech": "noun",
+            "definition": "An act of uncovering or revealing something; a revelation.",
+            "synonyms": "analysis, detection, exploration"
+        },
+        {
+            "id": 8,
+            "word": "titan",
+            "partOfSpeech": "noun",
+            "definition": "Something or someone of very large stature, greatness, or godliness.",
+            "synonyms": "behemoth, colossus, leviathan"
+        },
+        {
+            "id": 9,
+            "word": "stargazer",
+            "partOfSpeech": "noun",
+            "definition": "one who studies the night sky",
+            "synonyms": "astronomer, astrologer, daydreamer"
+        },
+        {
+            "id": 10,
+            "word": "reliant",
+            "partOfSpeech": "adjective",
+            "definition": "having or showing dependance",
+            "synonyms": "ancillary, contingent, depending"
+        },
+        {
+            "id": 11,
+            "word": "excelsior",
+            "partOfSpeech": "noun, adjective",
+            "definition": "More surpassing, more excelling",
+            "synonyms": "excellent"
+        },
+        {
+            "id": 12,
+            "word": "kelvin",
+            "partOfSpeech": "noun",
+            "definition": "In the International System of Units, the base unit of thermodynamic temperature; 1/273.16 of the thermodynamic temperature of the triple point of water.",
+            "synonyms": "degrees absolute"
+        },
+        {
+            "id": 13,
+            "word": "hale",
+            "partOfSpeech": "noun, adjective",
+            "definition": "Sound, entire, healthy; robust, not impaired.",
+            "synonyms": "fit, stout, well"
+        },
+        {
+            "id": 14,
+            "word": "canterbury",
+            "partOfSpeech": "noun",
+            "definition": "a city in E Kent, in SE England: cathedral; early ecclesiastical center of England.",
+            "synonyms": "none given"
+        },
+        {
+            "id": 15,
+            "word": "rosinante",
+            "partOfSpeech": "noun",
+            "definition": "the old, worn horse of Don Quixote. By extension, an old decrepit horse.",
+            "synonyms": "none given"
+        },
+        {
+            "id": 16,
+            "word": "gryphon",
+            "partOfSpeech": "noun",
+            "definition": "A mythical beast having the body of a lion and the wings and head of an eagle.",
+            "synonyms": "none given, though similar to leo, wildcat"
+        },
+        {
+            "id": 17,
+            "word": "millenium",
+            "partOfSpeech": "noun",
+            "definition": "a period of one thousand years",
+            "synonyms": "one thousandth anniversary, turn of the Century"
+        },
+        {
+            "id": 18,
+            "word": "falcon",
+            "partOfSpeech": "noun",
+            "definition": "Any bird of the genus Falco, all of which are birds of prey.",
+            "synonyms": "bird of prey"
+        },
+        {
+            "id": 19,
+            "word": "razor",
+            "partOfSpeech": "noun",
+            "definition": "A keen-edged knife of peculiar shape, used in shaving the hair from the face or other parts of the body.",
+            "synonyms": "blade, cutting edge, shaving instrument"
+        },
+        {
+            "id": 20,
+            "word": "crest",
+            "partOfSpeech": "noun, verb",
+            "definition": "The summit of a hill or mountain ridge; or to reach that summit",
+            "synonyms": "peak, ridge, pinnacle"
+        }
+    ]
+}

@@ -1,0 +1,69 @@
+body {
+  background-color: rgb(51, 51, 51);
+  color:antiquewhite;
+}
+
+#wrapper {
+    display: grid;
+    grid-template-columns: 5, 1fr;
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+  }
+  #search-a-word {
+    grid-column: 2 / 4;
+    grid-row: 1;
+    background-color:  rgb(51, 51, 51);
+    color:antiquewhite;
+  }
+  #search-bar-and-buttons {
+    grid-column: 2 / 4;
+    grid-row: 2;
+    background-color: rgb(51, 51, 51);
+    color:antiquewhite;
+  }
+  #word-list-div {
+    text-align: center;
+    grid-column: 1fr;
+    grid-row: 3 / 5;
+    background-color: rgb(51, 51, 51);
+    color:antiquewhite;
+  }
+  #word-and-definition {
+    text-align: center;
+    grid-column: 2fr;
+    grid-row: 3 / 5;
+    background-color: rgb(51, 51, 51);
+    color:antiquewhite;
+  }
+  #word-comparison {
+    grid-column: 2fr;
+    grid-row: 3 / 5;
+    background-color: rgb(51, 51, 51);
+    color:antiquewhite;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  .card {
+    text-align: center;
+    border: grey solid 1px;
+    padding: 1rem;
+    width: 15rem;
+    height: 25rem;
+    display: inline-grid;
+    margin: 1rem 2rem;
+    box-shadow: 2px 2px 4px #e0ae4b
+  }
+  button:hover {
+    cursor:pointer;
+  }
+  select:hover {
+    cursor:pointer;
+  }
+  li:hover {
+    cursor:pointer;
+  }
+
+  
