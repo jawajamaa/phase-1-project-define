@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Global variables for rendering definitions
     let mainMiddle = document.getElementById("word-and-definition");
     let mainRight = document.getElementById("word-comparison");
-    let wordEntryCard = document.createElement("div");
     // let compareDef = document.querySelector("#word-comparison").querySelector(".card");
     let word = document.createElement("h3");
     let partSpeech = document.createElement("p");
@@ -32,75 +31,77 @@ document.addEventListener("DOMContentLoaded", () => {
     // //////////////////////////////////////////////////////////////////////
     // Head of Search
 
-    // function compareBtnSwitch(wordsDb) {
-    //     let compareBtn = document.getElementById("compare-button");
-    //     compareBtn.addEventListener("dblclick", ()=>{
-    //         console.log("I was double clicked");
-    //         let currentDef = (document.querySelector("#four").querySelector(".card"));
-    //         mainRight.appendChild(currentDef);
-    //     })  
-    // }
+    function compareBtnSwitch(wordsDb) {
+        let compareBtn = document.getElementById("compare-button");
+        compareBtn.addEventListener("dblclick", ()=>{
+            console.log("I was double clicked");
+            let compareDef = (document.querySelector("#word-and-definition  ").querySelector(".card"));
+            mainRight.appendChild(compareDef);
+        })  
+    }
 
-    // function searchWord(wordsDb) {
-    //     const searchForm = document.getElementById("word-search");
-    //     let wordInput = document.getElementById("word-input");
-    //     let selectOption = document.getElementById("select");
-    //     searchForm.addEventListener("submit", (event)=>{
-    //         event.preventDefault();
-    //         console.log(wordsDb);
-    //         let searchValue = wordInput.value;
-    //         console.log(searchValue);
-    //         let wordFound = wordsDb.find(singleWord=>singleWord.word === `${searchValue.toLowerCase()}`);
-    //         console.log(wordFound);
-    //         if (selectOption.value === "Definition") {
-    //             console.log(selectOption.value);
-    //             renderWordDef(wordFound);   
-    //         } else if (selectOption.value === "Part of Speech") {
-    //             console.log(selectOption.value);
-    //             renderWordPartSpeech(wordFound); 
-    //         } else if (selectOption.value === "Synonym(s)") {
-    //             console.log(selectOption.value);
-    //             renderSynonym(wordFound);
-    //         } else {
-    //             console.log(selectOption.value);
-    //             renderCompleteWordDef(wordFound);
-    //         }
+    function searchWord(wordsDb) {
+        const searchForm = document.getElementById("word-search");
+        let wordInput = document.getElementById("word-input");
+        let selectOption = document.getElementById("select");
+        searchForm.addEventListener("submit", (event)=>{
+            event.preventDefault();
+            console.log(wordsDb);
+            let searchValue = wordInput.value;
+            console.log(searchValue);
+            let wordFound = wordsDb.find(singleWord=>singleWord.word === `${searchValue.toLowerCase()}`);
+            console.log(wordFound);
+            if (selectOption.value === "Definition") {
+                console.log(selectOption.value);
+                renderWordDef(wordFound);   
+            } else if (selectOption.value === "Part of Speech") {
+                console.log(selectOption.value);
+                renderWordPartSpeech(wordFound); 
+            } else if (selectOption.value === "Synonym(s)") {
+                console.log(selectOption.value);
+                renderSynonym(wordFound);
+            } else {
+                console.log(selectOption.value);
+                renderCompleteWordDef(wordFound);
+            }
             
-    // })
-    // }
+    })
+    }
 
 
     // // //////////////////////////////////////////////////////////////////////
     // // Render functions
 
-    // function renderSideBarWords(wordsDb) {
-    //     let wordList = document.getElementById("word-list");
-    //     let currentDef = (document.querySelector("#four").querySelector(".card"));
-    //     let compareDef;
-    //     wordsDb.forEach(wordEntry=>{
-    //         let li = document.createElement("li");
-    //         console.log(wordEntry);
-    //         li.textContent = wordEntry.word;
-    //         li.id = wordEntry.id;
-    //         li.addEventListener("click", slctWordEntry=>{
-    //             console.log("I was clicked");
-    //             console.log(li.textContent);
-    //             console.log(wordsDb);
-    //             slctWordEntry = li;
-    //             console.log(slctWordEntry);
-    //             if (document.querySelector("#five").querySelector(".card") === null) {
-    //                 renderFullDefinition(slctWordEntry, wordsDb);
-    //             } else {
-    //                 compareDef = document.querySelector("#five").querySelector(".card");
-    //                 console.log(compareDef);
-    //                 renderFullDefinition(slctWordEntry, wordsDb);
-    //                 mainRight.append(compareDef);
-    //             }
-    //             // renderFullDefinition(slctWordEntry, wordsDb);
-    //         })
-    //         wordList.appendChild(li);
-    // })
-    // }
+    function renderSideBarWords(wordsDb) {
+        let wordList = document.getElementById("word-list");
+        let currentDef = (document.querySelector("#word-and-definition").querySelector(".card"));
+        // let compareDef;
+        wordsDb.forEach(wordEntry=>{
+            let li = document.createElement("li");
+            console.log(wordEntry);
+            li.textContent = wordEntry.word;
+            li.id = wordEntry.id;
+            li.addEventListener("click", slctWordEntry=>{
+                console.log("I was clicked");
+                console.log(li.textContent);
+                console.log(wordsDb);
+                slctWordEntry = li;
+                console.log(slctWordEntry);
+                let currWordDefCard = document.querySelector("#word-and-definition").querySelector(".card");
+                if (currWordDefCard !== null) {
+                    console.log(currWordDefCard);
+                    let currWordCompCard = currWordDefCard;
+                    console.log(currWordCompCard);
+                    mainRight.append(currWordCompCard);
+                    removeCard();
+                    renderFullDefinition(slctWordEntry, wordsDb);
+                } else {
+                    renderFullDefinition(slctWordEntry, wordsDb);
+                }
+            })
+            wordList.appendChild(li);
+    })
+    }
 
     // // function isMainRightPop() {
     // //     let compareDef = document.querySelector("#five").querySelector(".card");
@@ -112,80 +113,95 @@ document.addEventListener("DOMContentLoaded", () => {
     // //     }
     // // }
 
-    // function renderFullDefinition(slctWordEntry, wordsDb) {
-    //     // isMainRightPop();
-    //     for (let i = 0; i <= wordsDb.length-1; i++) {
-    //         if (slctWordEntry.id == wordsDb[i].id) {
-    //             slctWordEntry = wordsDb[i];
+    function renderFullDefinition(slctWordEntry, wordsDb) {
+        // isMainRightPop();
+        let wordEntryCard = document.createElement("div");
+        for (let i = 0; i <= wordsDb.length-1; i++) {
+            if (slctWordEntry.id == wordsDb[i].id) {
+                slctWordEntry = wordsDb[i];
 
-    //             word.textContent = slctWordEntry.word;
-    //             wordEntryCard.appendChild(word);
+                word.textContent = slctWordEntry.word;
+                wordEntryCard.appendChild(word);
                 
-    //             partSpeech.textContent = `Part of speech: ${slctWordEntry.partOfSpeech}`;
-    //             wordEntryCard.appendChild(partSpeech);
+                partSpeech.textContent = `Part of speech: ${slctWordEntry.partOfSpeech}`;
+                wordEntryCard.appendChild(partSpeech);
                 
-    //             definition.textContent = `Definition: ${slctWordEntry.definition}`;
-    //             wordEntryCard.appendChild(definition);
+                definition.textContent = `Definition: ${slctWordEntry.definition}`;
+                wordEntryCard.appendChild(definition);
                 
-    //             synonym.textContent = `Synonym(s): ${slctWordEntry.synonyms}`;
-    //             wordEntryCard.appendChild(synonym);
-    //             wordEntryCard.setAttribute("class", "card");
-    //             mainMiddle.append(wordEntryCard);
-    //             // console.log(compareDef);
-    //             // mainRight.append(compareDef);
-    //     }    
-    // }
-    // }
+                synonym.textContent = `Synonym(s): ${slctWordEntry.synonyms}`;
+                wordEntryCard.appendChild(synonym);
+                wordEntryCard.setAttribute("class", "card");
+                mainMiddle.append(wordEntryCard);
+                // console.log(compareDef);
+                // mainRight.append(compareDef);
+        }    
+    }
+    }
 
-    // function renderWordDef(wordFound) {
-    //     mainMiddle.textContent = " ";
-    //     word.textContent = wordFound.word;
-    //     wordEntryCard.appendChild(word);
+    function renderWordDef(wordFound) {
+        let wordDefCard = document.createElement("div");
+        removeCard();
+        word.textContent = wordFound.word;
+        wordDefCard.appendChild(word);
 
-    //     definition.textContent = `Definition: ${wordFound.definition}`;
-    //     wordEntryCard.appendChild(definition);
-    //     wordEntryCard.setAttribute("class", "card");
-    //     mainMiddle.append(wordEntryCard);
-    // }
+        definition.textContent = `Definition: ${wordFound.definition}`;
+        wordDefCard.appendChild(definition);
+        wordDefCard.setAttribute("class", "card");
+        console.log(mainMiddle.innerText);
+        mainMiddle.appendChild(wordDefCard);
+    }
 
-    // function renderWordPartSpeech(wordFound) {
-    //     mainMiddle.textContent = " ";
-    //     word.textContent = wordFound.word;
-    //     wordEntryCard.appendChild(word);
+    function renderWordPartSpeech(wordFound) {
+        let wordPartSpchCard = document.createElement("div");
+        removeCard();
+        word.textContent = wordFound.word;
+        wordPartSpchCard.appendChild(word);
         
-    //     partSpeech.textContent = `Part of speech: ${wordFound.partOfSpeech}`;
-    //     wordEntryCard.appendChild(partSpeech);
-    //     wordEntryCard.setAttribute("class", "card");
-    //     mainMiddle.append(wordEntryCard);
-    // }
+        partSpeech.textContent = `Part of speech: ${wordFound.partOfSpeech}`;
+        wordPartSpchCard.appendChild(partSpeech);
+        wordPartSpchCard.setAttribute("class", "card");
+        mainMiddle.append(wordPartSpchCard);
+    }
 
-    // function renderSynonym(wordFound) {
-    //     mainMiddle.textContent = " ";
-    //     word.textContent = wordFound.word;
-    //     wordEntryCard.appendChild(word);
+    function renderSynonym(wordFound) {
+        let wordSynonym = document.createElement("div");
+        removeCard();
+        word.textContent = wordFound.word;
+        wordSynonym.appendChild(word);
 
-    //     synonym.textContent = `Synonym(s): ${wordFound.synonyms}`;
-    //     wordEntryCard.appendChild(synonym);
-    //     wordEntryCard.setAttribute("class", "card");
-    //     mainMiddle.append(wordEntryCard);
-    // }
+        synonym.textContent = `Synonym(s): ${wordFound.synonyms}`;
+        wordSynonym.appendChild(synonym);
+        wordSynonym.setAttribute("class", "card");
+        mainMiddle.append(wordSynonym);
+    }
 
-    // function renderCompleteWordDef(wordFound) {
-    //     mainMiddle.textContent = " ";
-    //     word.textContent = wordFound.word;
-    //     wordEntryCard.appendChild(word);
+    function renderCompleteWordDef(wordFound) {
+        let compWordDefCard = document.createElement("div");
+        removeCard();
+        word.textContent = wordFound.word;
+        compWordDefCard.appendChild(word);
         
-    //     partSpeech.textContent = `Part of speech: ${wordFound.partOfSpeech}`;
-    //     wordEntryCard.appendChild(partSpeech);
+        partSpeech.textContent = `Part of speech: ${wordFound.partOfSpeech}`;
+        compWordDefCard.appendChild(partSpeech);
         
-    //     definition.textContent = `Definition: ${wordFound.definition}`;
-    //     wordEntryCard.appendChild(definition);
+        definition.textContent = `Definition: ${wordFound.definition}`;
+        compWordDefCard.appendChild(definition);
         
-    //     synonym.textContent = `Synonym(s): ${wordFound.synonyms}`;
-    //     wordEntryCard.appendChild(synonym);
-    //     wordEntryCard.setAttribute("class", "card");
-    //     mainMiddle.append(wordEntryCard);
-    // }
+        synonym.textContent = `Synonym(s): ${wordFound.synonyms}`;
+        compWordDefCard.appendChild(synonym);
+        compWordDefCard.setAttribute("class", "card");
+        mainMiddle.append(compWordDefCard);
+    }
+
+    // Remove function
+    ////////////////////////////////////////////////////////////////////////////
+    function removeCard(){
+        let currWordDefCard = document.querySelector("#word-and-definition").querySelector(".card");
+        if (currWordDefCard !== null) {
+            currWordDefCard.remove();
+        }
+    }
 
 // End of DOM Content Loaded callback
 })
