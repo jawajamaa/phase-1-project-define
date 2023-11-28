@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Global variables for rendering definitions
     let mainMiddle = document.getElementById("word-and-definition");
     let mainRight = document.getElementById("word-comparison");
-    // let compareDef = document.querySelector("#word-comparison").querySelector(".card");
+    let compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
     let word = document.createElement("h3");
     let partSpeech = document.createElement("p");
     let definition = document.createElement("p");
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let compareBtn = document.getElementById("compare-button");
         compareBtn.addEventListener("dblclick", ()=>{
             console.log("I was double clicked");
-            let compareDef = (document.querySelector("#word-and-definition  ").querySelector(".card"));
+            let compareDef = (document.querySelector("#word-and-definition").querySelector(".card"));
             mainRight.appendChild(compareDef);
         })  
     }
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderSideBarWords(wordsDb) {
         let wordList = document.getElementById("word-list");
-        let currentDef = (document.querySelector("#word-and-definition").querySelector(".card"));
+        // let cremoveCurrDefCard = (document.querySelector("#word-and-definition").querySelector(".card"));
         // let compareDef;
         wordsDb.forEach(wordEntry=>{
             let li = document.createElement("li");
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     let currWordCompCard = currWordDefCard;
                     console.log(currWordCompCard);
                     mainRight.append(currWordCompCard);
-                    removeCard();
+                    removeCurrDefCard();
                     renderFullDefinition(slctWordEntry, wordsDb);
                 } else {
                     renderFullDefinition(slctWordEntry, wordsDb);
@@ -103,18 +103,12 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     }
 
-    // // function isMainRightPop() {
-    // //     let compareDef = document.querySelector("#five").querySelector(".card");
-    // //     if (document.querySelector("#five").querySelector(".card") === null) {
-    // //         console.log(compareDef);
-    // //     } else {
-    // //         // console.log(compareDef);
-    // //         return compareDef = document.querySelector("#five").querySelector(".card");
-    // //     }
-    // // }
+
 
     function renderFullDefinition(slctWordEntry, wordsDb) {
-        // isMainRightPop();
+        compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
+        removeCompDefCard();
+        console.log(document.querySelector("#word-comparison").querySelector(".card"));
         let wordEntryCard = document.createElement("div");
         for (let i = 0; i <= wordsDb.length-1; i++) {
             if (slctWordEntry.id == wordsDb[i].id) {
@@ -133,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 wordEntryCard.appendChild(synonym);
                 wordEntryCard.setAttribute("class", "card");
                 mainMiddle.append(wordEntryCard);
-                // console.log(compareDef);
+                console.log(compWordDefCard);
                 // mainRight.append(compareDef);
         }    
     }
@@ -141,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderWordDef(wordFound) {
         let wordDefCard = document.createElement("div");
-        removeCard();
+        removeCurrDefCard();
         word.textContent = wordFound.word;
         wordDefCard.appendChild(word);
 
@@ -154,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderWordPartSpeech(wordFound) {
         let wordPartSpchCard = document.createElement("div");
-        removeCard();
+        removeCurrDefCard();
         word.textContent = wordFound.word;
         wordPartSpchCard.appendChild(word);
         
@@ -166,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderSynonym(wordFound) {
         let wordSynonym = document.createElement("div");
-        removeCard();
+        removeCurrDefCard();
         word.textContent = wordFound.word;
         wordSynonym.appendChild(word);
 
@@ -178,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderCompleteWordDef(wordFound) {
         let compWordDefCard = document.createElement("div");
-        removeCard();
+        removeCurrDefCard();
         word.textContent = wordFound.word;
         compWordDefCard.appendChild(word);
         
@@ -196,11 +190,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Remove function
     ////////////////////////////////////////////////////////////////////////////
-    function removeCard(){
+    function removeCurrDefCard(){
         let currWordDefCard = document.querySelector("#word-and-definition").querySelector(".card");
         if (currWordDefCard !== null) {
+            console.log(currWordDefCard);
             currWordDefCard.remove();
+            console.log(currWordDefCard);
         }
+    }
+
+    function removeCompDefCard(){
+        compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
+        if (compWordDefCard !== null) {
+            console.log(compWordDefCard.innerText);
+            compWordDefCard.remove();
+            replaceCompDefCard(compWordDefCard);
+            return compWordDefCard;
+        }
+    }
+
+    function replaceCompDefCard(compWordDefCard) {
+        console.log(compWordDefCard);
+        let newCompDefCard = document.createElement("div");
+        newCompDefCard.append(compWordDefCard);
+        mainRight.append(newCompDefCard);
     }
 
 // End of DOM Content Loaded callback
