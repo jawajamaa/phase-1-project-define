@@ -1,208 +1,183 @@
+// 1. fetch words with definitions, PoS and synonyms and create object, wordsDb
+// 2. render words in word-list on sidebar(bottom left div) and add event listener
+// 3. add event listener (not in a function?)to the form to search a word typed in 
+//      and use its own fetch to fetch the word and the definition/PoS/synonym and 
+//      call a function(use a function set to a variable?) for each that handles each one
+//      or calls the main definition function - renderFullDef() (itself containing the individual variables
+//      for each element of the full definition)
+// 4.when a word in the word-list is selected (clicked on), bring up the definition
+//      by invoking renderFullDef() in the mainMiddle div.
+// 5. add event listener ("dblclick") to the Comparison button that moves the main
+//      defition to the word-comparison panel.
+
+
+// DOMContentLoaded Event Listener
+// ///////////////////////////////////////////////////////////////////////////
+
 document.addEventListener("DOMContentLoaded", () => {
+
+// /////////////////////////////////////////////////////////////////////
+// Global variables
     const baseUrl = "http://localhost:3000/";
     let wordId = "words";
+    let wordsDb = 0;
+    let wordSearchForm = document.querySelector("#word-search");
+    let wordAndDef = document.getElementById("word-and-definition");
+    let wordComp = document.getElementById("word-comparison");
+    // let compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
+    let wordEntryCard = document.createElement("div");
+    let compareBtn = document.getElementById("compare-button");
 
-    // /////////////////////////////////////////////////////////////////////
-    // Global variables for rendering definitions
-    let mainMiddle = document.getElementById("word-and-definition");
-    let mainRight = document.getElementById("word-comparison");
-    let compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
-    let word = document.createElement("h3");
-    let partSpeech = document.createElement("p");
-    let definition = document.createElement("p");
-    let synonym = document.createElement("p");
+// Event Listeners including overall DOMContentLoaded EL
+// ///////////////////////////////////////////////////////////////////////////
 
-
-    fetch(`${baseUrl}${wordId}`)
-    .then(response=>{
-        if (response.ok) {
-            return results = response.json();
-        } else {
-            throw error(response.statusText);
-        }
-    }) .then (results =>{
-        let wordsDb = results;
-        console.log(wordsDb);
-        renderSideBarWords(wordsDb);
-        searchWord(wordsDb);
-        compareBtnSwitch(wordsDb);
-    })
-
-    // //////////////////////////////////////////////////////////////////////
-    // Head of Search
-
-    function compareBtnSwitch(wordsDb) {
-        let compareBtn = document.getElementById("compare-button");
-        compareBtn.addEventListener("dblclick", ()=>{
-            console.log("I was double clicked");
-            let compareDef = (document.querySelector("#word-and-definition").querySelector(".card"));
-            mainRight.appendChild(compareDef);
-        })  
-    }
-
-    function searchWord(wordsDb) {
-        const searchForm = document.getElementById("word-search");
-        let wordInput = document.getElementById("word-input");
+    wordSearchForm.addEventListener("submit", (event)=>{
+        event.preventDefault();
+        let wordSearchInput = document.querySelector("#word-input").value;
         let selectOption = document.getElementById("select");
-        searchForm.addEventListener("submit", (event)=>{
-            event.preventDefault();
-            console.log(wordsDb);
-            let searchValue = wordInput.value;
-            console.log(searchValue);
-            let wordFound = wordsDb.find(singleWord=>singleWord.word === `${searchValue.toLowerCase()}`);
-            console.log(wordFound);
-            if (selectOption.value === "Definition") {
-                console.log(selectOption.value);
-                renderWordDef(wordFound);   
-            } else if (selectOption.value === "Part of Speech") {
-                console.log(selectOption.value);
-                renderWordPartSpeech(wordFound); 
-            } else if (selectOption.value === "Synonym(s)") {
-                console.log(selectOption.value);
-                renderSynonym(wordFound);
-            } else {
-                console.log(selectOption.value);
-                renderCompleteWordDef(wordFound);
-            }
-            
+        let searchWordFound = wordsDb.find(element => {
+            return element.word === (wordSearchInput.toLowerCase());
+        });
+
+        if (selectOption.value === "Definition") {
+            removeCurrDefCard();
+            clearWordEntryCard();
+            renderWord(searchWordFound);
+            renderDef(searchWordFound);
+            wordEntryCard.setAttribute("class", "card");
+            wordAndDef.append(wordEntryCard);
+
+        } else if (selectOption.value === "Part of Speech") {
+            removeCurrDefCard();
+            clearWordEntryCard();
+            renderWord(searchWordFound);
+            renderPoS(searchWordFound);
+            wordEntryCard.setAttribute("class", "card");
+            wordAndDef.append(wordEntryCard);
+
+        } else if (selectOption.value === "Synonym(s)") {
+            removeCurrDefCard();
+            clearWordEntryCard();
+            renderWord(searchWordFound);
+            renderSyn(searchWordFound);
+            wordEntryCard.setAttribute("class", "card");
+            wordAndDef.append(wordEntryCard);
+
+        } else {
+            renderFullDefinition(searchWordFound);
+        }
     })
-    }
+
+    compareBtn.addEventListener("dblclick", ()=>{
+console.log("I was double clicked");
+        let compWordDefCard = (document.querySelector("#word-and-definition").querySelector(".card"));
+        wordComp.appendChild(compWordDefCard);
+    })  
+
+    // Initial Fetch()
+    // ///////////////////////////////////////////////////////////////////////
+
+        fetch(`${baseUrl}${wordId}`)
+            .then(response=>{
+                if (response.ok) {
+                    return results = response.json();
+                } else {
+                    throw error(response.statusText);
+                }
+            }).then (results =>{
+                wordsDb = results;
+                console.log(wordsDb);
+                renderSideBarWords(wordsDb);
+                // compareBtnSwitch(wordsDb);
+            })    
+    // }
 
 
-    // // //////////////////////////////////////////////////////////////////////
+
+     // // //////////////////////////////////////////////////////////////////////
     // // Render functions
 
     function renderSideBarWords(wordsDb) {
         let wordList = document.getElementById("word-list");
-        // let cremoveCurrDefCard = (document.querySelector("#word-and-definition").querySelector(".card"));
-        // let compareDef;
         wordsDb.forEach(wordEntry=>{
             let li = document.createElement("li");
-            console.log(wordEntry);
+        console.log(wordEntry);
             li.textContent = wordEntry.word;
             li.id = wordEntry.id;
             li.addEventListener("click", slctWordEntry=>{
-                console.log("I was clicked");
-                console.log(li.textContent);
-                console.log(wordsDb);
+        console.log("I was clicked");
                 slctWordEntry = li;
-                console.log(slctWordEntry);
+                let foundWord = wordsDb.find(element => {
+                    return element.id === (parseInt(slctWordEntry.id));
+                });
                 let currWordDefCard = document.querySelector("#word-and-definition").querySelector(".card");
                 if (currWordDefCard !== null) {
-                    console.log(currWordDefCard);
                     let currWordCompCard = currWordDefCard;
-                    console.log(currWordCompCard);
-                    mainRight.append(currWordCompCard);
+                    wordComp.append(currWordCompCard);
                     removeCurrDefCard();
-                    renderFullDefinition(slctWordEntry, wordsDb);
+                    renderFullDefinition(foundWord);
                 } else {
-                    renderFullDefinition(slctWordEntry, wordsDb);
+                    renderFullDefinition(foundWord);
                 }
             })
             wordList.appendChild(li);
-    })
+        })
     }
+// add error handling for misspelled words?
+        let renderWord = function(foundWord) {
+            let word = document.createElement("h3");
+            word.textContent = foundWord.word;
+            wordEntryCard.appendChild(word);
+        }
+        let renderPoS = function(foundWord) {
+            let partOfSpeech = document.createElement("p");
+            partOfSpeech.textContent = `Part of Speech: ${foundWord.partOfSpeech}`;
+            wordEntryCard.appendChild(partOfSpeech);
+        }
 
+        let renderDef = function(foundWord) {
+            let definition = document.createElement("p");
+            definition.textContent = `Definition: ${foundWord.definition}`;
+            wordEntryCard.appendChild(definition);
+        }
 
+        let renderSyn = function(foundWord) {
+            let synonyms = document.createElement("p");
+            synonyms.textContent = `Synonym(s): ${foundWord.synonyms}`;
+            wordEntryCard.appendChild(synonyms);
+        }
 
-    function renderFullDefinition(slctWordEntry, wordsDb) {
-        compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
-        removeCompDefCard();
-        console.log(document.querySelector("#word-comparison").querySelector(".card"));
-        let wordEntryCard = document.createElement("div");
-        for (let i = 0; i <= wordsDb.length-1; i++) {
-            if (slctWordEntry.id == wordsDb[i].id) {
-                slctWordEntry = wordsDb[i];
-
-                word.textContent = slctWordEntry.word;
-                wordEntryCard.appendChild(word);
-                
-                partSpeech.textContent = `Part of speech: ${slctWordEntry.partOfSpeech}`;
-                wordEntryCard.appendChild(partSpeech);
-                
-                definition.textContent = `Definition: ${slctWordEntry.definition}`;
-                wordEntryCard.appendChild(definition);
-                
-                synonym.textContent = `Synonym(s): ${slctWordEntry.synonyms}`;
-                wordEntryCard.appendChild(synonym);
-                wordEntryCard.setAttribute("class", "card");
-                mainMiddle.append(wordEntryCard);
-                console.log(compWordDefCard);
-                // mainRight.append(compareDef);
-        }    
-    }
-    }
-
-    function renderWordDef(wordFound) {
-        let wordDefCard = document.createElement("div");
+    function renderFullDefinition(foundWord) {
         removeCurrDefCard();
-        word.textContent = wordFound.word;
-        wordDefCard.appendChild(word);
-
-        definition.textContent = `Definition: ${wordFound.definition}`;
-        wordDefCard.appendChild(definition);
-        wordDefCard.setAttribute("class", "card");
-        console.log(mainMiddle.innerText);
-        mainMiddle.appendChild(wordDefCard);
+        clearWordEntryCard();
+        renderWord(foundWord);
+        renderPoS(foundWord);
+        renderDef(foundWord);
+        renderSyn(foundWord);
+        wordEntryCard.setAttribute("class", "card");
+        wordAndDef.append(wordEntryCard);
     }
 
-    function renderWordPartSpeech(wordFound) {
-        let wordPartSpchCard = document.createElement("div");
-        removeCurrDefCard();
-        word.textContent = wordFound.word;
-        wordPartSpchCard.appendChild(word);
-        
-        partSpeech.textContent = `Part of speech: ${wordFound.partOfSpeech}`;
-        wordPartSpchCard.appendChild(partSpeech);
-        wordPartSpchCard.setAttribute("class", "card");
-        mainMiddle.append(wordPartSpchCard);
-    }
-
-    function renderSynonym(wordFound) {
-        let wordSynonym = document.createElement("div");
-        removeCurrDefCard();
-        word.textContent = wordFound.word;
-        wordSynonym.appendChild(word);
-
-        synonym.textContent = `Synonym(s): ${wordFound.synonyms}`;
-        wordSynonym.appendChild(synonym);
-        wordSynonym.setAttribute("class", "card");
-        mainMiddle.append(wordSynonym);
-    }
-
-    function renderCompleteWordDef(wordFound) {
-        let compWordDefCard = document.createElement("div");
-        removeCurrDefCard();
-        word.textContent = wordFound.word;
-        compWordDefCard.appendChild(word);
-        
-        partSpeech.textContent = `Part of speech: ${wordFound.partOfSpeech}`;
-        compWordDefCard.appendChild(partSpeech);
-        
-        definition.textContent = `Definition: ${wordFound.definition}`;
-        compWordDefCard.appendChild(definition);
-        
-        synonym.textContent = `Synonym(s): ${wordFound.synonyms}`;
-        compWordDefCard.appendChild(synonym);
-        compWordDefCard.setAttribute("class", "card");
-        mainMiddle.append(compWordDefCard);
-    }
-
-    // Remove function
+       // Remove functions
     ////////////////////////////////////////////////////////////////////////////
+
+    function clearWordEntryCard() {
+        wordEntryCard.textContent = " ";
+    } 
+
     function removeCurrDefCard(){
         let currWordDefCard = document.querySelector("#word-and-definition").querySelector(".card");
         if (currWordDefCard !== null) {
-            console.log(currWordDefCard);
+    console.log(currWordDefCard);
             currWordDefCard.remove();
-            console.log(currWordDefCard);
+    console.log(currWordDefCard);
         }
     }
 
     function removeCompDefCard(){
         compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
         if (compWordDefCard !== null) {
-            console.log(compWordDefCard.innerText);
+    console.log(compWordDefCard.innerText);
             compWordDefCard.remove();
             replaceCompDefCard(compWordDefCard);
             return compWordDefCard;
@@ -210,10 +185,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function replaceCompDefCard(compWordDefCard) {
-        console.log(compWordDefCard);
+console.log(compWordDefCard);
         let newCompDefCard = document.createElement("div");
         newCompDefCard.append(compWordDefCard);
-        mainRight.append(newCompDefCard);
+        wordComp.append(newCompDefCard);
     }
 
 // End of DOM Content Loaded callback
