@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let wordEntryCard = document.createElement("div");
     let compareBtn = document.getElementById("compare-button");
 
-// Event Listeners including overall DOMContentLoaded EL
+// Event Listeners not including overall DOMContentLoaded EL
 // ///////////////////////////////////////////////////////////////////////////
 
     wordSearchForm.addEventListener("submit", (event)=>{
@@ -40,14 +40,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (selectOption.value === "Definition") {
+            // removeCompDefCard(compWordDefCard); 
             removeCurrDefCard();
             clearWordEntryCard();
             renderWord(searchWordFound);
             renderDef(searchWordFound);
             wordEntryCard.setAttribute("class", "card");
             wordAndDef.append(wordEntryCard);
+            // replaceCompDefCard(compWordDefCard);
+            
 
         } else if (selectOption.value === "Part of Speech") {
+            // removeCompDefCard(compWordDefCard);
             removeCurrDefCard();
             clearWordEntryCard();
             renderWord(searchWordFound);
@@ -56,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
             wordAndDef.append(wordEntryCard);
 
         } else if (selectOption.value === "Synonym(s)") {
+            // removeCompDefCard(compWordDefCard);
             removeCurrDefCard();
             clearWordEntryCard();
             renderWord(searchWordFound);
@@ -68,10 +73,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
+
     compareBtn.addEventListener("dblclick", ()=>{
 console.log("I was double clicked");
-        let compWordDefCard = (document.querySelector("#word-and-definition").querySelector(".card"));
-        wordComp.appendChild(compWordDefCard);
+        let deepCopyWordEntryCard = document.createElement("div");
+console.log(wordEntryCard);
+        deepCopyWordEntryCard.append(deepCopyElement(wordEntryCard));
+console.log(deepCopyWordEntryCard);
+        wordComp.append(deepCopyWordEntryCard);
     })  
 
     // Initial Fetch()
@@ -88,10 +97,7 @@ console.log("I was double clicked");
                 wordsDb = results;
                 console.log(wordsDb);
                 renderSideBarWords(wordsDb);
-                // compareBtnSwitch(wordsDb);
             })    
-    // }
-
 
 
      // // //////////////////////////////////////////////////////////////////////
@@ -112,8 +118,6 @@ console.log("I was double clicked");
                 });
                 let currWordDefCard = document.querySelector("#word-and-definition").querySelector(".card");
                 if (currWordDefCard !== null) {
-                    let currWordCompCard = currWordDefCard;
-                    wordComp.append(currWordCompCard);
                     removeCurrDefCard();
                     renderFullDefinition(foundWord);
                 } else {
@@ -174,22 +178,35 @@ console.log("I was double clicked");
         }
     }
 
-    function removeCompDefCard(){
-        compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
-        if (compWordDefCard !== null) {
-    console.log(compWordDefCard.innerText);
-            compWordDefCard.remove();
-            replaceCompDefCard(compWordDefCard);
-            return compWordDefCard;
-        }
-    }
+    // function removeCompDefCard(){
+        // compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
+        // let newCompDefCard = document.createElement("div");
+        // if (compWordDefCard !== null) {
+    // console.log(currWordDefCard);  ---- variable not accessible here, so errors out      
+    // console.log(compWordDefCard);
+            // newCompDefCard = compWordDefCard;
+            // let newCompDefCard = deepCopyElement(compWordDefCard);
+    // console.log(newCompDefCard);
+            // compWordDefCard.remove();
+            // replaceCompDefCard(newCompDefCard);
+            // return newCompDefCard;
+        // }
+    // }
 
-    function replaceCompDefCard(compWordDefCard) {
-console.log(compWordDefCard);
-        let newCompDefCard = document.createElement("div");
-        newCompDefCard.append(compWordDefCard);
-        wordComp.append(newCompDefCard);
+    // function replaceCompDefCard(newCompDefCard) {
+// console.log(newCompDefCard);
+        // let newCompDefCard = document.createElement("div");
+        // newCompDefCard.append(compWordDefCard);
+        // wordComp.append(newCompDefCard);
+    // }
+
+    // function deepCopyElement courtesy ChatGPT3.5
+    function deepCopyElement(originalElement) {
+        const clonedElement = originalElement.cloneNode(true); // true to clone all descendants
+        // Modify or manipulate the cloned element here if needed
+        return clonedElement;
     }
+    
 
 // End of DOM Content Loaded callback
 })
