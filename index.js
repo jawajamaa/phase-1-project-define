@@ -39,19 +39,16 @@ document.addEventListener("DOMContentLoaded", () => {
             return element.word === (wordSearchInput.toLowerCase());
         });
 
-        if (selectOption.value === "Definition") {
-            // removeCompDefCard(compWordDefCard); 
+        if (selectOption.value === "Definition") { 
             removeCurrDefCard();
             clearWordEntryCard();
             renderWord(searchWordFound);
             renderDef(searchWordFound);
             wordEntryCard.setAttribute("class", "card");
             wordAndDef.append(wordEntryCard);
-            // replaceCompDefCard(compWordDefCard);
             
 
         } else if (selectOption.value === "Part of Speech") {
-            // removeCompDefCard(compWordDefCard);
             removeCurrDefCard();
             clearWordEntryCard();
             renderWord(searchWordFound);
@@ -60,7 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
             wordAndDef.append(wordEntryCard);
 
         } else if (selectOption.value === "Synonym(s)") {
-            // removeCompDefCard(compWordDefCard);
             removeCurrDefCard();
             clearWordEntryCard();
             renderWord(searchWordFound);
@@ -76,11 +72,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     compareBtn.addEventListener("dblclick", ()=>{
 console.log("I was double clicked");
-        let deepCopyWordEntryCard = document.createElement("div");
+        let compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
+console.log(compWordDefCard);
+        if (compWordDefCard !== null) {
+            removeCompDefCard();
+            let deepCopyWordEntryCard = document.createElement("div");
 console.log(wordEntryCard);
-        deepCopyWordEntryCard.append(deepCopyElement(wordEntryCard));
+            deepCopyWordEntryCard.append(deepCopyElement(wordEntryCard));
 console.log(deepCopyWordEntryCard);
-        wordComp.append(deepCopyWordEntryCard);
+            wordComp.append(deepCopyWordEntryCard);
+            removeCurrDefCard();
+            clearWordEntryCard();
+        } else {
+            let deepCopyWordEntryCard = document.createElement("div");
+console.log(wordEntryCard);
+            deepCopyWordEntryCard.append(deepCopyElement(wordEntryCard));
+console.log(deepCopyWordEntryCard);
+            wordComp.append(deepCopyWordEntryCard);
+            removeCurrDefCard();
+            clearWordEntryCard();
+        }
     })  
 
     // Initial Fetch()
@@ -178,32 +189,18 @@ console.log(deepCopyWordEntryCard);
         }
     }
 
-    // function removeCompDefCard(){
-        // compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
-        // let newCompDefCard = document.createElement("div");
-        // if (compWordDefCard !== null) {
-    // console.log(currWordDefCard);  ---- variable not accessible here, so errors out      
-    // console.log(compWordDefCard);
-            // newCompDefCard = compWordDefCard;
-            // let newCompDefCard = deepCopyElement(compWordDefCard);
-    // console.log(newCompDefCard);
-            // compWordDefCard.remove();
-            // replaceCompDefCard(newCompDefCard);
-            // return newCompDefCard;
-        // }
-    // }
-
-    // function replaceCompDefCard(newCompDefCard) {
-// console.log(newCompDefCard);
-        // let newCompDefCard = document.createElement("div");
-        // newCompDefCard.append(compWordDefCard);
-        // wordComp.append(newCompDefCard);
-    // }
+    function removeCompDefCard(){
+        let compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
+        if (compWordDefCard !== null) {
+    console.log(compWordDefCard);
+        compWordDefCard.remove();
+    console.log(compWordDefCard);
+        }
+    }
 
     // function deepCopyElement courtesy ChatGPT3.5
     function deepCopyElement(originalElement) {
         const clonedElement = originalElement.cloneNode(true); // true to clone all descendants
-        // Modify or manipulate the cloned element here if needed
         return clonedElement;
     }
     
