@@ -10,12 +10,14 @@ body {
     grid-auto-rows: minmax(100px, auto);
   }
   #search-a-word {
+    text-align: left;
     grid-column: 2 / 4;
     grid-row: 1;
     background-color:  rgb(51, 51, 51);
     color:antiquewhite;
   }
   #search-bar-and-buttons {
+    text-align: left;
     grid-column: 2 / 4;
     grid-row: 2;
     background-color: rgb(51, 51, 51);
@@ -36,6 +38,7 @@ body {
     color:antiquewhite;
   }
   #word-comparison {
+    text-align: center;
     grid-column: 2fr;
     grid-row: 3 / 5;
     background-color: rgb(51, 51, 51);
