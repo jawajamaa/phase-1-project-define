@@ -70,23 +70,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     compareBtn.addEventListener("dblclick", ()=>{
-console.log("I was double clicked");
         let compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
-console.log(compWordDefCard);
         if (compWordDefCard !== null) {
             removeCompDefCard();
             let deepCopyWordEntryCard = document.createElement("div");
-console.log(wordEntryCard);
             deepCopyWordEntryCard.append({...wordEntryCard});
-console.log(deepCopyWordEntryCard);
             wordComp.append(deepCopyWordEntryCard);
             removeCurrDefCard();
             clearWordEntryCard();
         } else {
             let deepCopyWordEntryCard = document.createElement("div");
-console.log(wordEntryCard);
             deepCopyWordEntryCard.append(deepCopyElement(wordEntryCard));
-console.log(deepCopyWordEntryCard);
             wordComp.append(deepCopyWordEntryCard);
             removeCurrDefCard();
             clearWordEntryCard();
