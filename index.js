@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let wordSearchForm = document.querySelector("#word-search");
     let wordAndDef = document.getElementById("word-and-definition");
     let wordComp = document.getElementById("word-comparison");
-    // let compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
     let wordEntryCard = document.createElement("div");
     let compareBtn = document.getElementById("compare-button");
 
