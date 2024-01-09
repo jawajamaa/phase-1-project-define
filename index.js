@@ -111,11 +111,9 @@ document.addEventListener("DOMContentLoaded", () => {
         let wordList = document.getElementById("word-list");
         wordsDb.forEach(wordEntry=>{
             let li = document.createElement("li");
-        console.log(wordEntry);
             li.textContent = wordEntry.word;
             li.id = wordEntry.id;
             li.addEventListener("click", slctWordEntry=>{
-        console.log("I was clicked");
                 slctWordEntry = li;
                 let foundWord = wordsDb.find(element => {
                     return element.id === (parseInt(slctWordEntry.id));
@@ -131,6 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
             wordList.appendChild(li);
         })
     }
+    
 // add error handling for misspelled words?
         let renderWord = function(foundWord) {
             let word = document.createElement("h3");
