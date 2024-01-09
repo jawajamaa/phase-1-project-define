@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (compWordDefCard !== null) {
             removeCompDefCard();
             let deepCopyWordEntryCard = document.createElement("div");
-            deepCopyWordEntryCard.append({...wordEntryCard});
+            deepCopyWordEntryCard.append(deepCopyElement(wordEntryCard));
             wordComp.append(deepCopyWordEntryCard);
             removeCurrDefCard();
             clearWordEntryCard();
