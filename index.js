@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Event Listeners not including overall DOMContentLoaded EL
 // ///////////////////////////////////////////////////////////////////////////
 
+// wordSearchForm submit event
     wordSearchForm.addEventListener("submit", (event)=>{
         event.preventDefault();
         let wordSearchInput = document.querySelector("#word-input").value;
@@ -68,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
-
+// move WordDefintion to Word and Comparison via DeepCopy(invoke DeepCopy ln190)
     compareBtn.addEventListener("dblclick", ()=>{
         let compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
         if (compWordDefCard !== null) {
@@ -99,7 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }).then (results =>{
                 wordsDb = results;
-                console.log(wordsDb);
+                // console.log(wordsDb);
+                // main object consoleLog commented for future ref if needed
                 renderSideBarWords(wordsDb);
             })    
 
@@ -107,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
      // // //////////////////////////////////////////////////////////////////////
     // // Render functions
 
+    // renderSideBarWords function to display 20 words in dbJson file
     function renderSideBarWords(wordsDb) {
         let wordList = document.getElementById("word-list");
         wordsDb.forEach(wordEntry=>{
@@ -131,6 +134,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 // add error handling for misspelled words?
+
+// individual function expressions
         let renderWord = function(foundWord) {
             let word = document.createElement("h3");
             word.textContent = foundWord.word;
@@ -182,9 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function removeCompDefCard(){
         let compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
         if (compWordDefCard !== null) {
-    console.log(compWordDefCard);
         compWordDefCard.remove();
-    console.log(compWordDefCard);
         }
     }
 
