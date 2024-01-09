@@ -77,7 +77,6 @@ console.log(compWordDefCard);
             removeCompDefCard();
             let deepCopyWordEntryCard = document.createElement("div");
 console.log(wordEntryCard);
-            // deepCopyWordEntryCard.append(deepCopyElement(wordEntryCard));
             deepCopyWordEntryCard.append({...wordEntryCard});
 console.log(deepCopyWordEntryCard);
             wordComp.append(deepCopyWordEntryCard);
