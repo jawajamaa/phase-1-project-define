@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let wordSearchInput = document.querySelector("#word-input").value;
         let selectOption = document.getElementById("select");
         let searchWordFound = wordsDb.find(element => {
+            // if ()
             return element.word === (wordSearchInput.toLowerCase());
         });
 
@@ -69,8 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
-// move WordDefintion to Word and Comparison via DeepCopy(invoke DeepCopy ln190)
-    compareBtn.addEventListener("dblclick", ()=>{
+// move WordDefintion to Word and Comparison via DeepCopy(invoke DeepCopy ln198)
+    function handleDblClick() {
+console.log("I've been clicked");        
         let compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
         if (compWordDefCard !== null) {
             removeCompDefCard();
@@ -86,7 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
             removeCurrDefCard();
             clearWordEntryCard();
         }
-    })  
+    }
+
+    compareBtn.addEventListener("dblclick", handleDblClick);  
 
     // Initial Fetch()
     // ///////////////////////////////////////////////////////////////////////
