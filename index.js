@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
             wordList.appendChild(li);
         })
     }
-    
+
 // add error handling for misspelled words?
         let renderWord = function(foundWord) {
             let word = document.createElement("h3");
@@ -175,9 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function removeCurrDefCard(){
         let currWordDefCard = document.querySelector("#word-and-definition").querySelector(".card");
         if (currWordDefCard !== null) {
-    console.log(currWordDefCard);
             currWordDefCard.remove();
-    console.log(currWordDefCard);
         }
     }
 
