@@ -36,37 +36,40 @@ document.addEventListener("DOMContentLoaded", () => {
         let wordSearchInput = document.querySelector("#word-input").value;
         let selectOption = document.getElementById("select");
         let searchWordFound = wordsDb.find(element => {
-            // if ()
             return element.word === (wordSearchInput.toLowerCase());
         });
+        
+        if (searchWordFound !== undefined) {
+            if (selectOption.value === "Definition") { 
+                removeCurrDefCard();
+                clearWordEntryCard();
+                renderWord(searchWordFound);
+                renderDef(searchWordFound);
+                wordEntryCard.setAttribute("class", "card");
+                wordAndDef.append(wordEntryCard);
 
-        if (selectOption.value === "Definition") { 
-            removeCurrDefCard();
-            clearWordEntryCard();
-            renderWord(searchWordFound);
-            renderDef(searchWordFound);
-            wordEntryCard.setAttribute("class", "card");
-            wordAndDef.append(wordEntryCard);
-            
 
-        } else if (selectOption.value === "Part of Speech") {
-            removeCurrDefCard();
-            clearWordEntryCard();
-            renderWord(searchWordFound);
-            renderPoS(searchWordFound);
-            wordEntryCard.setAttribute("class", "card");
-            wordAndDef.append(wordEntryCard);
+            } else if (selectOption.value === "Part of Speech") {
+                removeCurrDefCard();
+                clearWordEntryCard();
+                renderWord(searchWordFound);
+                renderPoS(searchWordFound);
+                wordEntryCard.setAttribute("class", "card");
+                wordAndDef.append(wordEntryCard);
 
-        } else if (selectOption.value === "Synonym(s)") {
-            removeCurrDefCard();
-            clearWordEntryCard();
-            renderWord(searchWordFound);
-            renderSyn(searchWordFound);
-            wordEntryCard.setAttribute("class", "card");
-            wordAndDef.append(wordEntryCard);
+            } else if (selectOption.value === "Synonym(s)") {
+                removeCurrDefCard();
+                clearWordEntryCard();
+                renderWord(searchWordFound);
+                renderSyn(searchWordFound);
+                wordEntryCard.setAttribute("class", "card");
+                wordAndDef.append(wordEntryCard);
 
+            } else {
+                renderFullDefinition(searchWordFound);
+            }
         } else {
-            renderFullDefinition(searchWordFound);
+            window.alert("Please check your spelling and try again!");
         }
     })
 
