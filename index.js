@@ -71,8 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
 // move WordDefintion to Word and Comparison via DeepCopy(invoke DeepCopy ln198)
-    function handleDblClick() {
-console.log("I've been clicked");        
+    function handleDblClick() {       
         let compWordDefCard = document.querySelector("#word-comparison").querySelector(".card");
         if (compWordDefCard !== null) {
             removeCompDefCard();
